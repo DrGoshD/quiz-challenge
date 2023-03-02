@@ -1,24 +1,26 @@
-let highScores = JSON.parse(localStorage.getItem("scores")) || []; //help from TA
+let highScores = JSON.parse(localStorage.getItem("scores")) || [];
 
 let time = 60;
 function timer (){
-    setInterval(function(){
-    time--;
-    document.getElementById('time').innerText=time;
-}, 1000);
-}
+    function timerTick(){
+        time--;
+        document.getElementById('time').innerText=time;
+        if(time<=0){
+            clearInterval(interval);
+            }
+    };
 
+    const interval = setInterval(timerTick, 1000);
+        
+}
 
 document.getElementById('start').addEventListener('click',function(event){
     event.preventDefault();
+    document.getElementById("start-screen").classList.add("hide")
     console.log(event.target.innerText)
     document.getElementById("questions").classList.remove("hide")
     timer();
-    if(time<=0){
-        clearInterval(timer)
-    }
-}) //help from TA
-
+})
 
 //when done with all the questions
 document.getElementById("submit").addEventListener("click",function(event){
