@@ -32,3 +32,4 @@ document.getElementById("submit").addEventListener("click",function(event){
     highScores.push(score);
     localStorage.setItem("scores",JSON.stringify(highScores))
 });
+
