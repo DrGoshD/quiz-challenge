@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Coding Quiz</title>
-    <script src="./assets/script.js" defer></script>
     <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
 
@@ -22,12 +21,17 @@
           limit. Keep in mind that incorrect answers will penalize your
           score/time by ten seconds!
         </p>
-        <button id="start">Start Quiz</button>
+        <button id="start-btn">Start Quiz</button>
       </div>
 
       <div id="questions" class="hide">
-        <h2 id="question-title">text goes here</h2>
-        <div id="choices" class="choices">choices go here</div>
+        <h2 id="question">Questions</h2>
+        <div id="choices-buttons" class="btn-grid">
+          <button class="btn">Choice 1</button>
+          <button class="btn">Choice 2</button>
+          <button class="btn">Choice 3</button>
+          <button class="btn">Choice 4</button>
+        </div>
       </div>
           
       <div id="end-screen" class="hide">
@@ -37,12 +41,18 @@
           Enter initials: <input type="text" id="initials" max="3" />
           <button id="submit">Submit</button>
         </p>
+        <table id="highScores">
+          <tr>
+            <th>Initials</th>
+            <th>Score</th>
+          </tr>
+        </table>
       </div>
 
       <div id="feedback" class="feedback hide"></div>
     </div>
 
-    <script src="./assets/js/questions.js"></script>
     <script src="./assets/js/logic.js"></script>
+
   </body>
 </html>
