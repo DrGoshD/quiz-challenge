@@ -1,26 +1,37 @@
+const username = document.querySelector('#username')
+const saveScoreBtn = document.querySelector('#saveScoreBtn')
+const finalScore = document.querySelector('#finalScore')
+const mostRecentScore = document.querySelector('#mostRecentScore')
+
 let highScores = JSON.parse(localStorage.getItem("scores")) || [];
 
-let time = 60;
-function timer (){
-    function timerTick(){
-        time--;
-        document.getElementById('time').innerText=time;
-        if(time<=0){
-            clearInterval(interval);
-            }
-    };
+finalScore.innerText = mostRecentScore
 
-    const interval = setInterval(timerTick, 1000);
-        
+username.addEventListener('keyup', () => {
+    saveScoreBtn.disabled = !username.value
+})
+
+saveHighScore = e => {
+    e.preventDefault()
+
+    const score = {
+        score: mostRecentScore,
+        name: username.value,
+    }
+
+    highScores.push(score)
+
+    highScores.sort((a,b) => {
+        return b.score - a.score
+    })
+
+    highScores.splice(5)
+
+    localStorage.setItem('highScores', JSON.stringify(highScores))
+    window.location.assign('/')
+    
 }
 
-document.getElementById('start').addEventListener('click',function(event){
-    event.preventDefault();
-    document.getElementById("start-screen").classList.add("hide")
-    console.log(event.target.innerText)
-    document.getElementById("questions").classList.remove("hide")
-    timer();
-})
 
 function buildQuiz() {
     const output = [];
