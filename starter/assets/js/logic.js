@@ -52,11 +52,11 @@ const questions = [
 ];
 
 const startBtn = document.querySelector("#start-btn");
-const nextBtn = document.querySelector('#next-btn');
+// const nextBtn = document.querySelector('#next-btn');
 const choicesContainer = document.getElementById('choices-buttons');
 const questionsDiv = document.getElementById('question');
 const timerDiv = document.getElementById('time');
-const highScores = localStorage.getItem("scores") || [];
+const highScores = [];
 const highScoresDiv = document.querySelector("#highScores");
 const submitBtn = document.getElementById('submit');
 
@@ -80,8 +80,9 @@ function timer (){
         time--;
         document.getElementById('time').innerText=time;
         if(time<=0){
-            clearInterval(interval);
-            }
+           endGame(); 
+           clearInterval(interval);
+        }
     };
 
     const interval = setInterval(timerTick, 1000);
@@ -95,18 +96,19 @@ function setNextQuestion(){
     document.querySelectorAll(".btn")[2].innerText = questions[currentPosition].answers[2];
     document.querySelectorAll(".btn")[3].innerText = questions[currentPosition].answers[3];
    currentPosition++
-   if(currentPosition === 4) {
+   if(currentPosition-1 === 4) {
     endGame();
    }
 }
 
 choicesContainer.addEventListener("click",function(event){
-    if(event.target.innerText === questions[currentPosition].correctAnswer){
+    if(event.target.innerText === questions[currentPosition-1].correctAnswer){
         setNextQuestion();
+        
 
-    }
-    else if(event.target.innerText !== questions[currentPosition].correctAnswer){
-        time-10;
+    } else if(event.target.innerText !== questions[currentPosition-1].correctAnswer){
+        time-=10;
+        console.log(questions[currentPosition-1].correctAnswer);
         setNextQuestion();
     }
 })
@@ -114,15 +116,15 @@ choicesContainer.addEventListener("click",function(event){
 //you need to set an if statement to end the game when the questions array is finished
 function endGame() {
     console.log("end-game")
-    clearInterval(timerId)
-    
+    document.getElementById("end-screen").classList.remove("hide");
+    document.getElementById("questions").classList.add("hide");
+    document.getElementById("start-screen").classList.add("hide");
+    document.getElementById("")
 }
-//need to set an if statement for if the timer equals 0 to end the Game
 
-//need to set an event for when the game ends, to display the high scores div, append the high scores in a for loop to the table, and also sort the high scores array before doing so. you need to push the initials and time left into the high scores array and then re-setItem for localStorage, overwriting the previous array
-
-document.getElementById("submit").addEventListener("click",function(event){
+submitBtn.addEventListener("click",function(event){
     event.preventDefault();
+    
     let score = {
         user:document.getElementById("initials").value,
         score: time
