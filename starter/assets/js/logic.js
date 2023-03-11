@@ -2,7 +2,7 @@ const questions = [
     {
         question: "Who invented JavaScript?",
         answers: [
-          "Michael Douglas",
+            "Michael Douglas",
             "Michelle Pfeifer",
             "Michael Jordan",
             "Brendan Eich",
@@ -32,17 +32,17 @@ const questions = [
     {
         question: "Which one of these is a JavaScript package manager?",
         answers: [
-           "Node.js",
+            "Node.js",
             "npm",
             "TypeScript",
-             "axios",
+            "axios",
         ],
         correctAnswer: "npm"
     },
     {
         question: "Which tool can you use to ensure code quality?",
         answers: [
-           "Angular",
+            "Angular",
             "jQuery",
             "RequireJS",
             "ESLint",
@@ -52,18 +52,20 @@ const questions = [
 ];
 
 const startBtn = document.querySelector("#start-btn");
-// const nextBtn = document.querySelector('#next-btn');
 const choicesContainer = document.getElementById('choices-buttons');
 const questionsDiv = document.getElementById('question');
 const timerDiv = document.getElementById('time');
 const highScores = [];
 const highScoresDiv = document.querySelector("#highScores");
 const submitBtn = document.getElementById('submit');
+const feedback = document.getElementById("feedback");
+const soundCorrect = new Audio("../sfx/correct.wav");
+const soundIncorrect = new Audio("../sfx/incorrect.wav");
 
 let currentPosition = 0;
 let time = 60;
-let currentQuestion = {}
-let acceptingAnswers = true
+let currentQuestion = {};
+let acceptingAnswers = true;
 
 startBtn.addEventListener("click",startGame)
 
@@ -86,40 +88,57 @@ function timer (){
     };
 
     const interval = setInterval(timerTick, 1000);
+    
         
 }
 
 function setNextQuestion(){
+    
     questionsDiv.innerText = questions[currentPosition].question;
     document.querySelectorAll(".btn")[0].innerText = questions[currentPosition].answers[0];
     document.querySelectorAll(".btn")[1].innerText = questions[currentPosition].answers[1];
     document.querySelectorAll(".btn")[2].innerText = questions[currentPosition].answers[2];
     document.querySelectorAll(".btn")[3].innerText = questions[currentPosition].answers[3];
    currentPosition++
-   if(currentPosition-1 === 4) {
-    endGame();
-   }
+
 }
 
 choicesContainer.addEventListener("click",function(event){
     if(event.target.innerText === questions[currentPosition-1].correctAnswer){
+        feedback.textContent = "Correct!";
+            feedback.style.display = "block";
+            soundCorrect.play();
+            setTimeout(function () {
+                feedback.style.display = "none";
+            }, 1000);
         setNextQuestion();
-        
-
+       
     } else if(event.target.innerText !== questions[currentPosition-1].correctAnswer){
+        feedback.textContent = "Incorrect!";
+            feedback.style.display = "block";
+            soundIncorrect.play();
+            setTimeout(function () {
+                feedback.style.display = "none";
+            }, 1000);        
         time-=10;
         console.log(questions[currentPosition-1].correctAnswer);
-        setNextQuestion();
     }
+    
+    if (questionsDiv >= questions) {
+        endGame();
+    } 
+    
+    event.target.innerText.appendChild(choicesContainer);
 })
 
-//you need to set an if statement to end the game when the questions array is finished
+
+
 function endGame() {
+ 
     console.log("end-game")
     document.getElementById("end-screen").classList.remove("hide");
     document.getElementById("questions").classList.add("hide");
     document.getElementById("start-screen").classList.add("hide");
-    document.getElementById("")
 }
 
 submitBtn.addEventListener("click",function(event){
@@ -131,4 +150,5 @@ submitBtn.addEventListener("click",function(event){
     }
     highScores.push(score);
     localStorage.setItem("scores",JSON.stringify(highScores))
+    
 });

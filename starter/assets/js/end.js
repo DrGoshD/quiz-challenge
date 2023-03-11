@@ -3,7 +3,7 @@ const saveScoreBtn = document.querySelector('#saveScoreBtn')
 const finalScore = document.querySelector('#finalScore')
 const mostRecentScore = document.querySelector('#mostRecentScore')
 
-highScores = JSON.parse(localStorage.getItem("scores")) || [];
+highScores = JSON.parse(localStorage.getItem("scores") || []);
 
 finalScore.innerText = mostRecentScore
 
@@ -32,7 +32,6 @@ saveHighScore = e => {
     
 }
 
-
 function buildQuiz() {
     const output = [];
 
@@ -58,7 +57,4 @@ function buildQuiz() {
     );
 
     quizContainer.innerHTML = output.join('');
-};  
-
-//need to set an event for when the game ends, to display the high scores div, append the high scores in a for loop to the table, and also sort the high scores array before doing so. you need to push the initials and time left into the high scores array and then re-setItem for localStorage, overwriting the previous array
-
+};

@@ -1,5 +1,4 @@
 const highScoresList = document.getElementById('highscores')
-// highScores = JSON.parse(localStorage.getItem('highScores') || [])
 const data = JSON.parse(localStorage.getItem('scores'))
 const reset = document.getElementById('clear')
 
