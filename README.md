@@ -8,7 +8,7 @@ An application where the user is able to take a timed quiz on the fundamentals o
 
 ## Links to deployed project
 Local URL: 
-GitHub URL:
+GitHub URL: https://github.com/DrGoshD/quiz-challenge
 
 ## Screenshot to deployed page
-![Quiz Challenge](/quiz-challenge?)
+![Quiz Challenge](/starter/assets/image/Deployed.jpg?raw=true)
