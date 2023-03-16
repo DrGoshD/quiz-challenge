@@ -7,7 +7,7 @@ An application where the user is able to take a timed quiz on the fundamentals o
     - stores high scores
 
 ## Links to deployed project
-Local URL:
+Local URL: 
 GitHub URL:
 
 ## Screenshot to deployed page

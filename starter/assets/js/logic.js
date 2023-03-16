@@ -28,7 +28,7 @@ const questions = [
             `<document.getElementByName("p").innerHTML = "Hello World!";>`,
             `<document.getElement("p").innerHTML = "Hello World!";>`
         ],
-        correctAnswer: `"<document.getElementById("demo").innerHTML = "Hello World!";>"`
+        correctAnswer: `<document.getElementById("demo").innerHTML = "Hello World!";>`
     },
     {
         question: "Which one of these is a JavaScript package manager?",
@@ -86,6 +86,10 @@ function timer (){
            endGame(); 
            clearInterval(interval);
         }
+        if (currentPosition === 5) {
+            endGame();
+            clearInterval(interval);
+        }
     };
 
     const interval = setInterval(timerTick, 1000);
@@ -96,17 +100,16 @@ function timer (){
 function setNextQuestion(){
     console.log(currentPosition);
     questionsDiv.innerText = questions[currentPosition].question;
+
     document.querySelectorAll(".btn")[0].innerText = questions[currentPosition].answers[0];
     document.querySelectorAll(".btn")[1].innerText = questions[currentPosition].answers[1];
     document.querySelectorAll(".btn")[2].innerText = questions[currentPosition].answers[2];
     document.querySelectorAll(".btn")[3].innerText = questions[currentPosition].answers[3];
-    document.querySelectorAll(".btn")[4].innerText = questions[currentPosition].answers[4];
-   currentPosition++
-
 }
 
 choicesContainer.addEventListener("click",function(event){
-    console.log(currentPosition);
+    
+
     if(event.target.innerText === questions[currentPosition].correctAnswer){
         feedback.textContent = "Correct!";
             feedback.style.display = "block";
@@ -114,6 +117,7 @@ choicesContainer.addEventListener("click",function(event){
             setTimeout(function () {
                 feedback.style.display = "none";
             }, 1000);
+        currentPosition++
         setNextQuestion();
        
     } else if(event.target.innerText !== questions[currentPosition].correctAnswer){
@@ -122,26 +126,23 @@ choicesContainer.addEventListener("click",function(event){
             soundIncorrect.play();
             setTimeout(function () {
                 feedback.style.display = "none";
-            }, 1000);        
+            }, 1000);
         time-=10;
-        console.log(questions[currentPosition].correctAnswer);
+        currentPosition++
+        setNextQuestion();
     }
     
-    if (questionsDiv >= questions) {
-        endGame();
-    } 
-
-    event.target.innerText.appendChild(choicesContainer);
 })
 
 
 
 function endGame() {
- 
-    console.log("end-game")
+   const score = time;
+
     document.getElementById("end-screen").classList.remove("hide");
     document.getElementById("questions").classList.add("hide");
     document.getElementById("start-screen").classList.add("hide");
+    document.getElementById("final-score").innerHTML=score;
 }
 
 submitBtn.addEventListener("click",function(event){
@@ -154,4 +155,5 @@ submitBtn.addEventListener("click",function(event){
     highScores.push(score);
     localStorage.setItem("scores",JSON.stringify(highScores))
     
+    location.href = './highscores.html';
 });
